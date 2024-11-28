@@ -1,0 +1,4 @@
+day:
+  type: str
+  help: Enter the day in format XX. examples 01, 12, 22 etc...
+

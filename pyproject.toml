@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "code"
+version = "1.0.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+exclude = [
+    { path = "template" }
+]
+[tool.poetry.dependencies]
+python = "^3.13"
+copier = "^9.4.1"
+pytest = "^8.3.3"
+
+[tool.pytest.ini_options]
+log_cli = true
+log_cli_level = "DEBUG"
+log_format = "%(message)s"
+addopts = "--ignore=template"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
