@@ -6,7 +6,7 @@ import pytest
 
 @pytest.fixture
 def load_text():
-    def load(name) -> list[str]:
+    def load(name: str) -> list[str]:
         caller_file = inspect.stack()[1].filename
         path = pathlib.Path(caller_file).resolve().parent / f"{name}.txt"
         with open(path, "r") as file:
@@ -17,7 +17,7 @@ def load_text():
 
 @pytest.fixture
 def load_sections():
-    def load(name) -> list[list[str]]:
+    def load(name: str) -> list[list[str]]:
         caller_file = inspect.stack()[1].filename
         path = pathlib.Path(caller_file).resolve().parent / f"{name}.txt"
         with open(path, "r") as file:
