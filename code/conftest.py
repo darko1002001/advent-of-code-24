@@ -21,7 +21,7 @@ def load_sections():
         caller_file = inspect.stack()[1].filename
         path = pathlib.Path(caller_file).resolve().parent / f"{name}.txt"
         with open(path, "r") as file:
-            sections = file.read().split("\n\n")
+            sections = file.read().strip().split("\n\n")
             return [section.split("\n") for section in sections]
 
     return load
