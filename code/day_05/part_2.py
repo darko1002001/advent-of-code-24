@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 
 def solve(inputs: list[str]) -> int:
-    rules = defaultdict(list)
+    rules: dict[int, list[int]] = defaultdict(list)
 
     rules_section = inputs[0]
 
@@ -15,7 +15,6 @@ def solve(inputs: list[str]) -> int:
         rules[left].append(right)
 
     updates_section = inputs[1]
-    seen = set()
     return sum(
         [
             check_update(rules, [int(u) for u in update.split(",")])
@@ -24,8 +23,8 @@ def solve(inputs: list[str]) -> int:
     )
 
 
-def check_update(rules, update) -> int:
-    seen = set()
+def check_update(rules: dict[int, list[int]], update: list[int]) -> int:
+    seen: set[int] = set()
     for value in update:
         value_rules = rules[value]
         for value_rule in value_rules:
@@ -35,8 +34,8 @@ def check_update(rules, update) -> int:
     return 0
 
 
-def sort_update(rules, update: list[int]) -> int:
-    def sort_by(a, b):
+def sort_update(rules: dict[int, list[int]], update: list[int]) -> int:
+    def sort_by(a: int, b: int):
         value_rules = rules[a]
         if b in value_rules:
             return 1
@@ -47,5 +46,5 @@ def sort_update(rules, update: list[int]) -> int:
 
     update.sort(key=cmp_to_key(sort_by))
 
-    middle = update[int(len(update) / 2)]
+    middle = update[len(update) // 2]
     return middle
