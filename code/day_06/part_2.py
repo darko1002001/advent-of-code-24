@@ -23,16 +23,22 @@ def solve(inputs: list[str]) -> int:
     start = find_start(grid)
     current_direction_index = 0
     barriers = 0
-    for i, row in enumerate(grid):
-        for j, item in enumerate(row):
-            if item == "#":
-                continue
-            seen: set[tuple[int, int, int]] = set(
-                {(start[0], start[1], current_direction_index)}
-            )
-            grid[i][j] = "#"
-            barriers += solve_run(grid, seen, start, current_direction_index)
-            grid[i][j] = "."
+    original_path: set[tuple[int, int, int]] = set(
+        {(start[0], start[1], current_direction_index)}
+    )
+    _ = solve_run(grid, original_path, start, current_direction_index)
+    original_path.remove((start[0], start[1], current_direction_index))
+    original_path.remove((start[0] - 1, start[1], current_direction_index))
+    path: set[tuple[int, int]] = set()
+    for i, j, _ in original_path:
+        path.add((i, j))
+    for i, j in path:
+        seen: set[tuple[int, int, int]] = set(
+            {(start[0], start[1], current_direction_index)}
+        )
+        grid[i][j] = "#"
+        barriers += solve_run(grid, seen, start, current_direction_index)
+        grid[i][j] = "."
 
     return barriers
 
