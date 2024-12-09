@@ -1,6 +1,5 @@
 import logging
-from cmath import e
-from typing import Literal, Optional
+from typing import Literal, override
 
 logger = logging.getLogger(__name__)
 
@@ -15,6 +14,7 @@ class Block:
         self.category = category
         self.size = size
 
+    @override
     def __repr__(self) -> str:
         word = "." if self.category == "space" else f"{self.id}"
         return word * self.size
@@ -71,7 +71,10 @@ def solve(inputs: list[str]) -> int:
             start += 1
 
         end -= 1
+    return calculate_checksum(partition_list)
 
+
+def calculate_checksum(partition_list: list[Block]) -> int:
     sum = 0
     id = 0
     for block in partition_list:

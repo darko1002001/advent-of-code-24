@@ -1,5 +1,5 @@
 import logging
-from typing import Literal, Optional
+from typing import Literal, override
 
 logger = logging.getLogger(__name__)
 
@@ -14,6 +14,7 @@ class Block:
         self.category = category
         self.size = size
 
+    @override
     def __repr__(self) -> str:
         word = "." if self.category == "space" else f"{self.id}"
         return word * self.size
@@ -32,6 +33,16 @@ def read_blocks(disk_map: str) -> list[Block]:
             id += 1
         partition_list.append(Block(id_, category, int(item)))
     return partition_list
+
+
+def calculate_checksum(result_list: list[Block]):
+    id = 0
+    sum = 0
+    for block in result_list:
+        for _ in range(block.size):
+            sum += block.id * id
+            id += 1
+    return sum
 
 
 def solve(inputs: list[str]) -> int:
@@ -74,10 +85,4 @@ def solve(inputs: list[str]) -> int:
         result_list.append(new_block)
     if partition_list[end].size > 0:
         result_list.append(partition_list[end])
-    id = 0
-    sum = 0
-    for block in result_list:
-        for _ in range(block.size):
-            sum += block.id * id
-            id += 1
-    return sum
+    return calculate_checksum(result_list)
