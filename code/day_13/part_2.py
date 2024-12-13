@@ -1,12 +1,30 @@
 import logging
 import re
 
-import numpy
-
 logger = logging.getLogger(__name__)
 
 A_PRICE = 3
 B_PRICE = 1
+
+
+def solve_linear_system(
+    aX: int, aY: int, aC: int, bX: int, bY: int, bC: int
+) -> None | tuple[int, int]:
+    determinant = aX * bY - aY * bX
+    if determinant == 0:
+        return None
+
+    # Cramer's rule for solving 2x2 linear systems
+    # Calculate numerators for a and b
+    num_a = aC * bY - aY * bC
+    num_b = aX * bC - aC * bX
+
+    # Check divisibility
+    if num_a % determinant == 0 and num_b % determinant == 0:
+        a = num_a // determinant
+        b = num_b // determinant
+        return a, b
+    return None
 
 
 def solve(inputs: list[list[str]]) -> int:
@@ -45,10 +63,9 @@ def solve_item(input: list[str]) -> int:
 
     """
 
-    left = [[ax, bx], [ay, by]]
-    right = [prize_x, prize_y]
-    result = numpy.linalg.solve(left, right)
-    a, b = list([round(i) for i in result])
-    correct_a: bool = (ax * a + bx * b) == prize_x
-    correct_b: bool = (ay * a + by * b) == prize_y
-    return A_PRICE * a + b * B_PRICE if correct_a and correct_b else 0
+    result = solve_linear_system(ax, bx, prize_x, ay, by, prize_y)
+    if result is None:
+        return 0
+
+    a, b = result
+    return A_PRICE * a + b * B_PRICE
