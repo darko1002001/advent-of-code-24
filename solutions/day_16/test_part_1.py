@@ -13,4 +13,4 @@ def test_part_1_sample_2(load_text):
 
 def test_part_1(load_text):
     lines = load_text("input")
-    assert solve(lines) == -1
+    assert solve(lines) == 102460
