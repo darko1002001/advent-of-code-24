@@ -3,6 +3,7 @@ import re
 type Grid = list[str] | list[list[str]]
 
 DIRECTIONS_MAP = {"R": (0, 1), "U": (-1, 0), "D": (1, 0), "L": (0, -1)}
+DIRECTIONS_ARROWS_MAP = {"v": (1, 0), "^": (-1, 0), ">": (0, 1), "<": (0, -1)}
 DIRECTIONS = [(1, 0), (-1, 0), (0, 1), (0, -1)]
 
 type Coordinate = tuple[int, int]
