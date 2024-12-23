@@ -3,10 +3,12 @@ import pathlib
 
 import pytest
 
+from solutions.types import LoadSectionsCallable, LoadTextCallable, Section
+
 
 @pytest.fixture
-def load_text():
-    def load(name: str) -> list[str]:
+def load_text() -> LoadTextCallable:
+    def load(name: str) -> Section:
         caller_file = inspect.stack()[1].filename
         path = pathlib.Path(caller_file).resolve().parent / f"{name}.txt"
         with open(path, "r") as file:
@@ -16,8 +18,8 @@ def load_text():
 
 
 @pytest.fixture
-def load_sections():
-    def load(name: str) -> list[list[str]]:
+def load_sections() -> LoadSectionsCallable:
+    def load(name: str) -> list[Section]:
         caller_file = inspect.stack()[1].filename
         path = pathlib.Path(caller_file).resolve().parent / f"{name}.txt"
         with open(path, "r") as file:

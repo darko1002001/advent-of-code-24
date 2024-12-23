@@ -1,7 +1,8 @@
 import heapq
 import logging
 
-from solutions.utils import DIRECTIONS, Coordinate, Grid, read_numbers
+from solutions.types import Coordinate, Grid
+from solutions.utils import DIRECTIONS, read_numbers
 
 logger = logging.getLogger(__name__)
 

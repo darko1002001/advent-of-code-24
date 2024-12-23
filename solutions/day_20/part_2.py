@@ -2,7 +2,8 @@ import heapq
 import logging
 from collections import defaultdict
 
-from solutions.utils import DIRECTIONS, Coordinate, Grid, traverse_grid
+from solutions.types import Coordinate, Grid
+from solutions.utils import DIRECTIONS, traverse_grid
 
 logger = logging.getLogger(__name__)
 

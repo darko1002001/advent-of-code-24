@@ -1,9 +1,9 @@
 from itertools import pairwise
 
 
-def solve(inputs) -> int:
-    inputs = [list(map(int, level.split(" "))) for level in inputs]
-    return sum([solve_level(level) for level in inputs])
+def solve(inputs: list[str]) -> int:
+    levels = [list(map(int, level.split(" "))) for level in inputs]
+    return sum([solve_level(level) for level in levels])
 
 
 def solve_level(level: list[int]):

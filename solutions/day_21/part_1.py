@@ -1,12 +1,8 @@
 import logging
 from functools import cache
 
-from solutions.utils import (
-    DIRECTIONS_ARROWS_MAP,
-    Coordinate,
-    read_numbers,
-    traverse_grid,
-)
+from solutions.types import Coordinate
+from solutions.utils import DIRECTIONS_ARROWS_MAP, read_numbers, traverse_grid
 
 logger = logging.getLogger(__name__)
 
